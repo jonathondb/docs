@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A+ Agent - Discover AI Agents That Replace Jobs</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF6B35;
+            --secondary: #4ECDC4;
+            --accent: #FFE66D;
+            --bg-main: #FAFAFA;
+            --bg-card: #FFFFFF;
+            --text-primary: #2D3436;
+            --text-secondary: #636E72;
+            --border: #E8E8E8;
+            --success: #00B894;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg-main);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+
+        .beta-badge {
+            background: var(--accent);
+            color: var(--text-primary);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        nav {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .cta-button {
+            background: var(--primary);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 80px 0 60px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(36px, 6vw, 56px);
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            color: var(--text-primary);
+        }
+
+        .hero .gradient-text {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            margin-top: 48px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Syne', sans-serif;
+            font-size: 40px;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* Search Bar */
+        .search-section {
+            margin: 48px 0;
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 18px 24px;
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 16px;
+            background: var(--bg-card);
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.1);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        /* Category Pills */
+        .categories {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 24px 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .categories::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-pill {
+            padding: 10px 20px;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 24px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 14px;
+            white-space: nowrap;
+            transition: all 0.3s;
+            color: var(--text-secondary);
+        }
+
+        .category-pill:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .category-pill.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        /* Agent Grid */
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 24px;
+            margin-bottom: 80px;
+        }
+
+        /* Agent Card */
+        .agent-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s;
+            cursor: pointer;
+            animation: fadeIn 0.5s ease-out both;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .agent-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+            border-color: var(--primary);
+        }
+
+        .agent-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 16px;
+        }
+
+        .agent-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+
+        .upvote-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: var(--bg-main);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            padding: 8px 12px;
+            min-width: 56px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .upvote-badge:hover {
+            border-color: var(--primary);
+        }
+
+        .upvote-icon {
+            font-size: 18px;
+        }
+
+        .upvote-count {
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--text-primary);
+            margin-top: 2px;
+        }
+
+        .agent-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--text-primary);
+        }
+
+        .agent-tagline {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .agent-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .agent-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .tag {
+            padding: 6px 12px;
+            background: var(--bg-main);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .agent-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .pricing-badge {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .pricing-badge.free {
+            background: rgba(0, 184, 148, 0.1);
+            color: var(--success);
+        }
+
+        .pricing-badge.paid {
+            background: rgba(255, 107, 53, 0.1);
+            color: var(--primary);
+        }
+
+        .featured-badge {
+            background: var(--accent);
+            color: var(--text-primary);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Submit Section */
+        .submit-section {
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 24px;
+            padding: 60px 40px;
+            margin: 80px 0;
+            text-align: center;
+        }
+
+        .submit-section h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 36px;
+            margin-bottom: 16px;
+        }
+
+        .submit-section p {
+            color: var(--text-secondary);
+            font-size: 18px;
+            margin-bottom: 32px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            padding: 60px 0 40px;
+            margin-top: 100px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer-section h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .agents-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-stats {
+                gap: 32px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .submit-section {
+                padding: 40px 24px;
+            }
+        }
+
+        /* Loading state */
+        .loading {
+            text-align: center;
+            padding: 60px 0;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo">A+ Agent</div>
+                    <span class="beta-badge">Beta</span>
+                </div>
+                <nav>
+                    <a href="#" class="nav-link">Browse</a>
+                    <a href="#" class="nav-link">Categories</a>
+                    <a href="#" class="nav-link">About</a>
+                    <button class="cta-button">Submit Agent</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Find the Perfect <span class="gradient-text">AI Agent</span><br>For Every Job Function</h1>
+            <p>Discover 247+ AI agents that automate sales, marketing, coding, support, and more. Compare features, pricing, and find your next autonomous teammate.</p>
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">247+</span>
+                    <span class="stat-label">AI Agents</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">35</span>
+                    <span class="stat-label">Job Categories</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">12K+</span>
+                    <span class="stat-label">Users</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="search-section">
+            <div class="search-container">
+                <input 
+                    type="text" 
+                    class="search-input" 
+                    placeholder="Search agents by name, job function, or capability..." 
+                    id="searchInput"
+                >
+            </div>
+        </section>
+
+        <div class="categories" id="categories">
+            <button class="category-pill active" data-category="all">🔥 Trending</button>
+            <button class="category-pill" data-category="sales">💼 Sales & Outreach</button>
+            <button class="category-pill" data-category="marketing">📣 Marketing</button>
+            <button class="category-pill" data-category="development">💻 Development</button>
+            <button class="category-pill" data-category="support">💬 Support</button>
+            <button class="category-pill" data-category="data">📊 Data & Analytics</button>
+            <button class="category-pill" data-category="hr">👥 HR & Recruiting</button>
+            <button class="category-pill" data-category="finance">💰 Finance</button>
+        </div>
+
+        <div class="agents-grid" id="agentsGrid">
+            <!-- Agents will be inserted here -->
+        </div>
+
+        <section class="submit-section">
+            <h2>Built an AI Agent?</h2>
+            <p>Join 247+ agents in our directory. Get discovered by thousands of potential users actively searching for AI solutions.</p>
+            <button class="cta-button">Submit Your Agent →</button>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>A+ Agent</h3>
+                    <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6;">The curated directory of AI agents organized by job function. Find, compare, and deploy agents that work.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Discover</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">All Agents</a></li>
+                        <li><a href="#">Categories</a></li>
+                        <li><a href="#">New This Week</a></li>
+                        <li><a href="#">Top Rated</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Agent Reviews</a></li>
+                        <li><a href="#">ROI Calculator</a></li>
+                        <li><a href="#">Guides</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Submit Agent</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 A+ Agent. Discover your autonomous workforce.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const agents = [
+            {
+                name: "Clay",
+                tagline: "Scale your outbound like never before",
+                description: "Autonomous sales prospecting agent that enriches leads from 50+ data sources, personalizes outreach, and integrates with your existing sales stack.",
+                category: "sales",
+                pricing: "paid",
+                tags: ["Lead Gen", "Data Enrichment", "Outreach"],
+                upvotes: 1247,
+                icon: "🎯",
+                featured: true
+            },
+            {
+                name: "Jasper AI",
+                tagline: "AI copilot for marketing teams",
+                description: "Create on-brand content 10x faster. Generate blog posts, social media, ad copy, and emails with your unique brand voice.",
+                category: "marketing",
+                pricing: "paid",
+                tags: ["Content", "Copywriting", "Brand Voice"],
+                upvotes: 2891,
+                icon: "✍️"
+            },
+            {
+                name: "GitHub Copilot",
+                tagline: "Your AI pair programmer",
+                description: "Code faster with AI-powered suggestions, autocomplete entire functions, and get contextual code recommendations as you type.",
+                category: "development",
+                pricing: "paid",
+                tags: ["Code Gen", "IDE", "Autocomplete"],
+                upvotes: 3452,
+                icon: "🤖"
+            },
+            {
+                name: "Intercom Fin",
+                tagline: "AI customer support that actually works",
+                description: "Resolve 50% of support tickets instantly using your knowledge base. Natural conversations, accurate answers, seamless handoff to humans.",
+                category: "support",
+                pricing: "paid",
+                tags: ["Support", "Chatbot", "Knowledge Base"],
+                upvotes: 982,
+                icon: "💬"
+            },
+            {
+                name: "Julius AI",
+                tagline: "Your AI data analyst",
+                description: "Chat with your data, generate insights, create visualizations, and run complex analyses in plain English. No SQL required.",
+                category: "data",
+                pricing: "free",
+                tags: ["Analytics", "Visualization", "SQL"],
+                upvotes: 745,
+                icon: "📊"
+            },
+            {
+                name: "Paradox Olivia",
+                tagline: "Recruiting, automated",
+                description: "Screen candidates, schedule interviews, answer questions 24/7. Reduce time-to-hire by 50% while improving candidate experience.",
+                category: "hr",
+                pricing: "paid",
+                tags: ["Recruiting", "Screening", "Scheduling"],
+                upvotes: 521,
+                icon: "👥"
+            },
+            {
+                name: "Harvey AI",
+                tagline: "AI for legal professionals",
+                description: "Legal research agent that analyzes contracts, performs case law research, and generates legal documents with citations.",
+                category: "finance",
+                pricing: "paid",
+                tags: ["Legal", "Research", "Contracts"],
+                upvotes: 1103,
+                icon: "⚖️",
+                featured: true
+            },
+            {
+                name: "Cursor",
+                tagline: "The AI-first code editor",
+                description: "Edit code across your entire codebase, chat with your project, and get intelligent suggestions with full context awareness.",
+                category: "development",
+                pricing: "paid",
+                tags: ["IDE", "Code Editor", "Refactoring"],
+                upvotes: 2134,
+                icon: "💻"
+            },
+            {
+                name: "Copy.ai",
+                tagline: "AI marketing simplified",
+                description: "Generate sales copy, product descriptions, and email campaigns. Includes A/B testing suggestions and conversion optimization.",
+                category: "marketing",
+                pricing: "free",
+                tags: ["Copywriting", "Email", "A/B Testing"],
+                upvotes: 1876,
+                icon: "📝"
+            },
+            {
+                name: "Smartlead",
+                tagline: "Cold email at scale",
+                description: "Unlimited sender accounts, AI personalization, inbox rotation, and deliverability optimization for cold outreach teams.",
+                category: "sales",
+                pricing: "paid",
+                tags: ["Email", "Outreach", "Automation"],
+                upvotes: 967,
+                icon: "📧"
+            },
+            {
+                name: "Zendesk AI",
+                tagline: "Intelligence built into support",
+                description: "Auto-categorize tickets, suggest responses, route conversations intelligently. Reduce response time by 60%.",
+                category: "support",
+                pricing: "paid",
+                tags: ["Ticketing", "Routing", "Automation"],
+                upvotes: 1542,
+                icon: "🎫"
+            },
+            {
+                name: "Vic.ai",
+                tagline: "Autonomous accounting",
+                description: "Process invoices, handle AP/AR, perform bookkeeping with 99% accuracy. Integrates with QuickBooks, Xero, NetSuite.",
+                category: "finance",
+                pricing: "paid",
+                tags: ["Accounting", "Invoices", "AP/AR"],
+                upvotes: 834,
+                icon: "💰"
+            },
+            {
+                name: "Perplexity",
+                tagline: "Where knowledge begins",
+                description: "AI-powered research agent. Search the web, synthesize information, and get cited answers to complex questions instantly.",
+                category: "data",
+                pricing: "free",
+                tags: ["Research", "Search", "Citations"],
+                upvotes: 3201,
+                icon: "🔍",
+                featured: true
+            },
+            {
+                name: "v0 by Vercel",
+                tagline: "Generate UI with simple text prompts",
+                description: "Create React components from descriptions. Built with shadcn/ui and Tailwind CSS. Copy, paste, ship.",
+                category: "development",
+                pricing: "free",
+                tags: ["UI", "React", "Components"],
+                upvotes: 2567,
+                icon: "🎨"
+            },
+            {
+                name: "Instantly.ai",
+                tagline: "Send cold emails that land in inbox",
+                description: "Email warm-up, deliverability optimization, and AI-powered personalization for cold outreach campaigns.",
+                category: "sales",
+                pricing: "paid",
+                tags: ["Email", "Warm-up", "Deliverability"],
+                upvotes: 1289,
+                icon: "🚀"
+            },
+            {
+                name: "AdCreative.ai",
+                tagline: "Generate ad creatives that sell",
+                description: "AI-powered ad creative generation with conversion optimization. Creates images, headlines, and audiences.",
+                category: "marketing",
+                pricing: "paid",
+                tags: ["Ads", "Creative", "Conversion"],
+                upvotes: 1423,
+                icon: "🎯"
+            },
+            {
+                name: "Reclaim.ai",
+                tagline: "Smart calendar for busy teams",
+                description: "Auto-schedule tasks, habits, and meetings while defending focus time. Integrates with Google Calendar and Slack.",
+                category: "hr",
+                pricing: "free",
+                tags: ["Calendar", "Scheduling", "Productivity"],
+                upvotes: 1645,
+                icon: "📅"
+            },
+            {
+                name: "Anania",
+                tagline: "Chat with your databases",
+                description: "Connect to SQL databases and spreadsheets. Ask questions in plain English, get instant answers with charts.",
+                category: "data",
+                pricing: "free",
+                tags: ["Database", "Spreadsheets", "Queries"],
+                upvotes: 612,
+                icon: "🗄️"
+            },
+            {
+                name: "Motion",
+                tagline: "Your AI project manager",
+                description: "Automatically plans your day, prioritizes tasks, and reschedules when meetings change. Built for busy teams.",
+                category: "hr",
+                pricing: "paid",
+                tags: ["Project Mgmt", "Tasks", "Automation"],
+                upvotes: 1834,
+                icon: "⚡"
+            },
+            {
+                name: "Reply.io",
+                tagline: "Multi-channel sales engagement",
+                description: "AI-powered email sequences, LinkedIn automation, and call tracking. Engage prospects across every channel.",
+                category: "sales",
+                pricing: "paid",
+                tags: ["Multi-channel", "Sequences", "LinkedIn"],
+                upvotes: 1156,
+                icon: "📬"
+            }
+        ];
+
+        const agentsGrid = document.getElementById('agentsGrid');
+        const categoryPills = document.querySelectorAll('.category-pill');
+        const searchInput = document.getElementById('searchInput');
+
+        let currentCategory = 'all';
+        let searchQuery = '';
+
+        function renderAgents() {
+            const filteredAgents = agents.filter(agent => {
+                const matchesCategory = currentCategory === 'all' || agent.category === currentCategory;
+                const matchesSearch = !searchQuery || 
+                    agent.name.toLowerCase().includes(searchQuery) ||
+                    agent.tagline.toLowerCase().includes(searchQuery) ||
+                    agent.description.toLowerCase().includes(searchQuery) ||
+                    agent.tags.some(tag => tag.toLowerCase().includes(searchQuery));
+                return matchesCategory && matchesSearch;
+            });
+
+            agentsGrid.innerHTML = filteredAgents.map((agent, index) => `
+                <div class="agent-card" style="animation-delay: ${index * 0.05}s;">
+                    <div class="agent-header">
+                        <div class="agent-icon">${agent.icon}</div>
+                        <div class="upvote-badge">
+                            <span class="upvote-icon">▲</span>
+                            <span class="upvote-count">${agent.upvotes}</span>
+                        </div>
+                    </div>
+                    <h3 class="agent-title">${agent.name}</h3>
+                    <div class="agent-tagline">${agent.tagline}</div>
+                    <p class="agent-description">${agent.description}</p>
+                    <div class="agent-tags">
+                        ${agent.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                    <div class="agent-footer">
+                        <span class="pricing-badge ${agent.pricing}">${agent.pricing}</span>
+                        ${agent.featured ? '<span class="featured-badge">Featured</span>' : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        categoryPills.forEach(pill => {
+            pill.addEventListener('click', () => {
+                categoryPills.forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
+                currentCategory = pill.dataset.category;
+                renderAgents();
+            });
+        });
+
+        searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value.toLowerCase();
+            renderAgents();
+        });
+
+        // Initial render
+        renderAgents();
+    </script>
+</body>
+</html>
